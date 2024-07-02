@@ -12,10 +12,20 @@ public class FakeStoreProductService implements  ProductService {
 
     private  RestTemplateBuilder restTemplateBuilder;
     private String getProductRequestUrl = "https://fakestoreapi.com/products/{id}";
+    private String createProductRequestUrl = "https://fakestoreapi.com/products";
 
     public FakeStoreProductService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplateBuilder = restTemplateBuilder;
     }
+    @Override
+    public GenericProductDto createProduct(GenericProductDto product) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<GenericProductDto> response = restTemplate.postForEntity(
+                createProductRequestUrl, product, GenericProductDto.class
+        );
+        return response.getBody();
+    }
+
     @Override
     public GenericProductDto getProductById(Long id) {
         RestTemplate restTemplate = restTemplateBuilder.build();
@@ -27,7 +37,6 @@ public class FakeStoreProductService implements  ProductService {
         product.setTitle(fakeStoreProductDto.getTitle());
         product.setCategory(fakeStoreProductDto.getCategory());
         product.setPrice(fakeStoreProductDto.getPrice());
-
         return product;
     }
 }
