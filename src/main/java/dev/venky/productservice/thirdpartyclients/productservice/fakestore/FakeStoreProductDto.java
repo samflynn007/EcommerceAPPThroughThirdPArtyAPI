@@ -1,4 +1,4 @@
-package dev.venky.productservice.dtos;
+package dev.venky.productservice.thirdpartyclients.productservice.fakestore;
 
 import lombok.Getter;
 import lombok.Setter;
